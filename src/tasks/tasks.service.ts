@@ -4,6 +4,7 @@ import { Task } from './task.entity';
 import { Repository } from 'typeorm';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { TaskStatus } from './task-status.enum';
+import { TasksQueryDTO } from './dto/tasks-query.dto';
 
 @Injectable()
 export class TasksService {
@@ -38,5 +39,36 @@ export class TasksService {
 
     if (removed.affected === 0)
       throw new NotFoundException(`Task with id ${id} not found`);
+  }
+
+  async changeTaskStatus(id: string, status: TaskStatus): Promise<Task> {
+    const found = await this.getTaskById(id);
+
+    found.status = status;
+
+    await this.taskRepository.save(found);
+
+    return found;
+  }
+
+  async getAllTasks(tasksQueryDTO: TasksQueryDTO): Promise<Task[]> {
+    const { status, search } = tasksQueryDTO;
+
+    console.log(typeof search);
+
+    const query = this.taskRepository.createQueryBuilder('task');
+
+    if (status) {
+      query.andWhere('task.status = :status', { status });
+    }
+
+    if (search) {
+      query.andWhere(
+        'LOWER(task.title) LIKE LOWER(:search) OR LOWER(task.description) LIKE LOWER(:search)',
+        { search: `%${search}%` },
+      );
+    }
+
+    return await query.getMany();
   }
 }
