@@ -27,7 +27,7 @@ export class TasksService {
   }
 
   async getTaskById(id: string): Promise<Task> {
-    const foundTask = this.taskRepository.findOne({ where: { id } });
+    const foundTask = await this.taskRepository.findOne({ where: { id } });
 
     if (!foundTask) throw new NotFoundException(`Task with id ${id} not found`);
 
@@ -53,8 +53,6 @@ export class TasksService {
 
   async getAllTasks(tasksQueryDTO: TasksQueryDTO): Promise<Task[]> {
     const { status, search } = tasksQueryDTO;
-
-    console.log(typeof search);
 
     const query = this.taskRepository.createQueryBuilder('task');
 

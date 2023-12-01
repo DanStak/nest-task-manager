@@ -7,19 +7,27 @@ import {
   Delete,
   Patch,
   Query,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './task.entity';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { ChangeTaskStatusDTO } from './dto/change-task-status.dto';
 import { TasksQueryDTO } from './dto/tasks-query.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('tasks')
 export class TasksController {
   constructor(private tasksService: TasksService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
-  createTask(@Body() createTaskDTO: CreateTaskDTO): Promise<Task> {
+  createTask(
+    @Body() createTaskDTO: CreateTaskDTO,
+    @Request() req,
+  ): Promise<Task> {
+    console.log(req.user);
     return this.tasksService.createTask(createTaskDTO);
   }
 
