@@ -4,23 +4,32 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Task } from './tasks/task.entity';
 import { AuthModule } from './auth/auth.module';
 import { User } from './users/user.entity';
-import { CardModule } from './card/card.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { envSchema } from './config.schema';
 
 @Module({
   imports: [
     TasksModule,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'task-management',
-      entities: [Task, User],
-      synchronize: true,
+    ConfigModule.forRoot({
+      validationSchema: envSchema,
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        return {
+          type: 'postgres',
+          host: configService.get('DB_HOST'),
+          port: configService.get('DB_PORT'),
+          username: configService.get('DB_USERNAME'),
+          password: configService.get('DB_PASSWORD'),
+          database: configService.get('DB_DATABASE'),
+          entities: [Task, User],
+          synchronize: true,
+        };
+      },
     }),
     AuthModule,
-    CardModule,
   ],
 })
 export class AppModule {}
