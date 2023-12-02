@@ -14,9 +14,9 @@ import { Task } from './task.entity';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { ChangeTaskStatusDTO } from './dto/change-task-status.dto';
 import { TasksQueryDTO } from './dto/tasks-query.dto';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { GetUser } from 'src/auth/get-user.decorator';
-import { AuthUser } from 'src/auth/auth-user.interface';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { GetUser } from '../auth/get-user.decorator';
+import { AuthUser } from '../auth/auth-user.interface';
 
 @UseGuards(JwtAuthGuard)
 @Controller('tasks')

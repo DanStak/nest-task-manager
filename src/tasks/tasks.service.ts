@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateTaskDTO } from './dto/create-task.dto';
 import { TaskStatus } from './task-status.enum';
 import { TasksQueryDTO } from './dto/tasks-query.dto';
-import { AuthUser } from 'src/auth/auth-user.interface';
+import { AuthUser } from '../auth/auth-user.interface';
 
 @Injectable()
 export class TasksService {

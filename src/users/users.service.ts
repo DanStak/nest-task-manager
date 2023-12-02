@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
-import { AuthCredentialsDTO } from 'src/auth/dto/auth-credentials.dto';
+import { AuthCredentialsDTO } from '../auth/dto/auth-credentials.dto';
 import { User } from './user.entity';
 
 @Injectable()
