@@ -1,3 +1,28 @@
+# Nest.js Task Manager API
+
+This repository serves as a learning project for exploring the fundamentals of Nest.js. The project focuses on building a REST API for a simple task manager. Here's a brief overview of its features:
+
+## Features:
+
+- **User Authentication:** Users can create accounts and log in, with authentication processes handled by JWT (JSON Web Tokens) and Passport.
+  
+- **Task Management:** Authenticated users can perform various actions related to task management, including:
+  - Creating tasks
+  - Changing task statuses
+  - Retrieving tasks by ID
+  - Deleting tasks
+
+## Technologies Used:
+
+- **Nest.js:** The main framework for building scalable and efficient server-side applications.
+- **JWT (JSON Web Tokens):** Used for secure user authentication.
+- **Passport:** A middleware for handling authentication in Node.js applications.
+- **Joi:** A library for schema validation, ensuring data integrity and security.
+- **bcrypt:** Used for secure password hashing.
+- **TypeORM:** An Object-Relational Mapping (ORM) library for TypeScript and JavaScript, working with databases.
+
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
